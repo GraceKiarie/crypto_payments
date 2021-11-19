@@ -18,8 +18,12 @@ defmodule CryptoPayments.EtherscanApiHttpClient do
       base_url() <>
         "?module=proxy&action=eth_blockNumber&apikey=#{api_key()}"
 
-    get(url)
+    {:ok, %{"result" => block_number}} = get(url)
+    hex_to_int(block_number)
+  end
 
-    # {:ok, %{"id" => 83, "jsonrpc" => "2.0", "result" => "0xd03c78"}}
+  defp hex_to_int(block_number) do
+    {block_number, _} = Integer.parse(String.trim_leading(block_number, "0x"), 16)
+    block_number
   end
 end
