@@ -101,4 +101,22 @@ defmodule CryptoPayments.Payments do
   def change_payment(%Payment{} = payment, attrs \\ %{}) do
     Payment.changeset(payment, attrs)
   end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking payment changes.
+
+  ## Examples
+
+      iex> change_payment(payment)
+      %Ecto.Changeset{data: %Payment{}}
+
+  """
+  def update_pending_payments(block) do
+    from(p in Payment,
+      where: p.confirmed_status == false and ^block - p.blockNumber > 1,
+      update: [set: [confirmed_status: true]]
+    )
+    |> Repo.update_all([])
+    |> IO.inspect()
+  end
 end

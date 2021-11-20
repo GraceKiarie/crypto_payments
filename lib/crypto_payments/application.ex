@@ -20,8 +20,9 @@ defmodule CryptoPayments.Application do
       # {CryptoPayments.Worker, arg}
 
       # Start Finch
-      {Finch, name: EtherscanApi}
-      # CryptoPayments.CurrentBlock
+      {Finch, name: EtherscanApi},
+      CryptoPayments.CurrentBlock,
+      CryptoPayments.ConfirmPayments
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

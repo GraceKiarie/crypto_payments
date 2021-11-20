@@ -4,7 +4,7 @@ defmodule CryptoPayments.CurrentBlock do
 
   def start_link(_) do
     state = EtherscanApiHttpClient.most_recent_block()
-    GenServer.start_link(__MODULE__, state)
+    GenServer.start_link(__MODULE__, state, name: Block)
   end
 
   @impl true
@@ -15,25 +15,26 @@ defmodule CryptoPayments.CurrentBlock do
   end
 
   @impl true
-  def handle_info(:work, state) do
-    # Do the desired work here
-    # ...
+  def handle_call(:current_state, _from, state) do
+    {:reply, state, state}
+  end
+
+  @impl true
+  def handle_info(:update, _state) do
+    # update state
     new_state = EtherscanApiHttpClient.most_recent_block()
-    IO.inspect(state)
-
-    if new_state > state do
-      # update transactions
-      IO.inspect("the diff is #{new_state - state}", label: "state")
-    end
-
     # Reschedule once more
     schedule_work()
 
     {:noreply, new_state}
   end
 
+  def current_state(server_name) do
+    GenServer.call(server_name, :current_state)
+  end
+
   defp schedule_work do
-    # We schedule update to happen every 5 seconds (written in milliseconds).
-    Process.send_after(self(), :work, 5000)
+    # schedule update to happen every 5 seconds (written in milliseconds).
+    Process.send_after(self(), :update, 5000)
   end
 end
