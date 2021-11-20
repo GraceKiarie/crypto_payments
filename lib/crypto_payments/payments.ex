@@ -117,6 +117,5 @@ defmodule CryptoPayments.Payments do
       update: [set: [confirmed_status: true]]
     )
     |> Repo.update_all([])
-    |> IO.inspect()
   end
 end

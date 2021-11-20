@@ -1,0 +1,37 @@
+<div>
+<table>
+           <thead>
+            <tr>
+              <th>#</th>
+              <th >Transaction Ref</th>
+              <th >Amount</th>
+              <th >Date</th>
+              <th >Status</th>
+              <th >Action</th>
+            </tr>
+          </thead>
+          <tbody>
+           <%= for payment <- @payments do %>
+            <tr id="payment-{payment.id}">
+              <th><%=payment.id%></th>
+              <td><%= payment.transactionHash %></td>
+              <td> <%= payment.value %></td>
+              <td> <%= payment.inserted_at %></td>
+              <td>
+              <%= if payment.confirmed_status == true do %>
+              <span class="badge bg-primary">Complete</span>
+              <% else %>
+              <span class="badge bg-danger">Pending</span>
+              <% end %>
+              </td>
+              <td>
+               <td>
+                <a href="#">View</a>
+              </td>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+
+</table>
+</div>

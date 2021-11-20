@@ -42,8 +42,8 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
 
         {:noreply, socket |> put_flash(:info, "Payment received pending confirmation")}
 
-      {:ok, %{"error" => %{"message" => message}}} ->
-        {:noreply, socket |> put_flash(:error, message)}
+      {:ok, %{"error" => %{"message" => _message}}} ->
+        {:noreply, socket |> put_flash(:error, "Please enter a valid tx_hash")}
     end
   end
 end

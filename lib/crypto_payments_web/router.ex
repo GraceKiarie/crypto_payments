@@ -17,9 +17,8 @@ defmodule CryptoPaymentsWeb.Router do
   scope "/", CryptoPaymentsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-
-    live "/payments", PaymentsLive
+    live "/", PaymentsLive
+    live "/records", RecordsLive
   end
 
   # Other scopes may use custom stacks.
