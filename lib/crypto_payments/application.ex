@@ -9,7 +9,7 @@ defmodule CryptoPayments.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      # CryptoPayments.Repo,
+      CryptoPayments.Repo,
       # Start the Telemetry supervisor
       CryptoPaymentsWeb.Telemetry,
       # Start the PubSub system
@@ -20,8 +20,8 @@ defmodule CryptoPayments.Application do
       # {CryptoPayments.Worker, arg}
 
       # Start Finch
-      {Finch, name: EtherscanApi},
-      CryptoPayments.CurrentBlock
+      {Finch, name: EtherscanApi}
+      # CryptoPayments.CurrentBlock
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

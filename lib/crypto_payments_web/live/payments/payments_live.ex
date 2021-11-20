@@ -1,6 +1,6 @@
 defmodule CryptoPaymentsWeb.PaymentsLive do
   use CryptoPaymentsWeb, :live_view
-  alias CryptoPayments.EtherscanApiHttpClient
+  alias CryptoPayments.{EtherscanApiHttpClient, Payments}
 
   @impl true
   def mount(_params, _session, socket) do
@@ -21,15 +21,25 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
       {:ok,
        %{
          "result" => %{
-           "blockNumber" => "0x4b9b05",
-           "gasUsed" => "0x5208",
-           "logs" => [],
-           "status" => "0x1",
-           "transactionHash" => _hash,
-           "transactionIndex" => "0xa0",
-           "type" => "0x0"
+           "blockHash" => blockHash,
+           "blockNumber" => blockNumber,
+           "from" => _,
+           "hash" => txHash,
+           "to" => _,
+           "value" => value
          }
        }} ->
+        blockNumber = EtherscanApiHttpClient.hex_to_int(blockNumber)
+        value = EtherscanApiHttpClient.hex_to_int(value)
+
+        %{
+          blockHash: blockHash,
+          blockNumber: blockNumber,
+          transactionHash: txHash,
+          value: value
+        }
+        |> Payments.create_payment()
+
         {:noreply, socket |> put_flash(:info, "Payment received pending confirmation")}
 
       {:ok, %{"error" => %{"message" => message}}} ->
