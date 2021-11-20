@@ -9,7 +9,7 @@ Receive Payments:
 
 
 Payment confirmation - implements two genservers:
-   * Genserver CurrentBlock keeps track of the most_recent_bock by calling the [eth_blockNumber endpoint] (https://docs.etherscan.io/api-endpoints/geth-parity-proxy#eth_blocknumber) every 5seconds . This block is converted to an int for easier manipulation.
+   * Genserver CurrentBlock keeps track of the most_recent_bock by calling the [eth_blockNumber endpoint](https://docs.etherscan.io/api-endpoints/geth-parity-proxy#eth_blocknumber) every 5seconds . This block is converted to an int for easier manipulation.
    * Genserver ConfirmPayments calls the CurrentBlock to get the state and updates payments that have more than 2 block confirmations by changing field confirmed_status to true, marking the payment as complete on the  "/records" page. Runs every 10 seconds
 
 Design issues:
