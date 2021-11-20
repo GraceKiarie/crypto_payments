@@ -28,3 +28,7 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :crypto_payments,
+  base_url: System.get_env("Etherscan_API_BASE_URL") || "http://localhost:4000",
+  api_key: System.get_env("Etherscan_API_KEY") || "ytyjiijtfrydtg"

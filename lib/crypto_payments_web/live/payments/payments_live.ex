@@ -23,9 +23,7 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
          "result" => %{
            "blockHash" => blockHash,
            "blockNumber" => blockNumber,
-           "from" => _,
            "hash" => txHash,
-           "to" => _,
            "value" => value
          }
        }} ->

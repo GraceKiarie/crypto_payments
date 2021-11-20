@@ -1,0 +1,30 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.etherscan.io/api?module=proxy&action=eth_getTransactionByHash&txhash=Ochsdkhchccnvvjkcj&apikey=S96TC1YDHWN2FPETDXRFMDIPG59G6ANIJ1"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"error\":{\"code\":-32602,\"message\":\"invalid argument 0: hex string has length 18, want 64 for common.Hash\"}}\n",
+      "headers": {
+        "server": "nginx",
+        "date": "Sat, 20 Nov 2021 14:58:53 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "131",
+        "connection": "keep-alive",
+        "cache-control": "private",
+        "access-control-allow-origin": "*",
+        "access-control-allow-headers": "Content-Type",
+        "access-control-allow-methods": "GET, POST, OPTIONS",
+        "x-frame-options": "SAMEORIGIN"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
