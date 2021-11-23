@@ -15,11 +15,10 @@ Payment confirmation - implements two genservers:
 Tests:
 Use of [exvcr](https://github.com/parroty/exvcr) cassettes
 
-Design issues:
- Having one worker can cause a crash if to many updates happen at once, especially if there is an extra step like sending emails once a transaction is marked complete.
+Possible Design issues:
+ The system has one worker that checks every 10seconds to see if there are pending confirmations that can be update given the latest block number.If confirmations have to happen immediately then the alternative would be to spawn every payment submission as a different and subscribe it to topic so that it can get broadcasted messages from the CurrentBlock server immediately a change occurs
  
- possible solution:
- Throttle by chunking the updates into batches , for example, handling 1000 at a time.
+
 
 
 
