@@ -107,13 +107,16 @@ defmodule CryptoPayments.Payments do
 
   ## Examples
 
-      iex> change_payment(payment)
-      %Ecto.Changeset{data: %Payment{}}
+      iex> update_pending_payments(block)
+          {5, nil}
+
 
   """
   def update_pending_payments(block) do
     from(p in Payment,
-      where: p.confirmed_status == false and ^block - p.blockNumber > 1,
+      where:
+        p.confirmed_status == false and
+          ^block - p.blockNumber >= ^Payment.minimum_block_confirmations_before_completion(),
       update: [set: [confirmed_status: true]]
     )
     |> Repo.update_all([])

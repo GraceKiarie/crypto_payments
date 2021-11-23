@@ -1,6 +1,6 @@
 defmodule CryptoPaymentsWeb.PaymentsLive do
   use CryptoPaymentsWeb, :live_view
-  alias CryptoPayments.{EtherscanApiHttpClient, Payments}
+  alias CryptoPayments.CreatePaymentService
 
   @impl true
   def mount(_params, _session, socket) do
@@ -9,8 +9,8 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
 
   @impl true
   def handle_event("save", %{"txhash" => hash}, socket) do
-    case EtherscanApiHttpClient.transaction_details(hash) do
-      {:ok, %{"result" => nil}} ->
+    case CreatePaymentService.create(hash) do
+      {:error, :no_tansaction_found} ->
         {:noreply,
          socket
          |> put_flash(
@@ -18,29 +18,10 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
            "No transaction exists for the given hash. Please confirm and try again"
          )}
 
-      {:ok,
-       %{
-         "result" => %{
-           "blockHash" => blockHash,
-           "blockNumber" => blockNumber,
-           "hash" => txHash,
-           "value" => value
-         }
-       }} ->
-        blockNumber = EtherscanApiHttpClient.hex_to_int(blockNumber)
-        value = EtherscanApiHttpClient.hex_to_int(value)
-
-        %{
-          blockHash: blockHash,
-          blockNumber: blockNumber,
-          transactionHash: txHash,
-          value: value
-        }
-        |> Payments.create_payment()
-
+      {:ok, _payment} ->
         {:noreply, socket |> put_flash(:info, "Payment received pending confirmation")}
 
-      {:ok, %{"error" => %{"message" => _message}}} ->
+      {:error, :invalid_tx_hash} ->
         {:noreply, socket |> put_flash(:error, "Please enter a valid tx_hash")}
     end
   end

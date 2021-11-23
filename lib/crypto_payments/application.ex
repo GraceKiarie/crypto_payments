@@ -21,7 +21,11 @@ defmodule CryptoPayments.Application do
 
       # Start Finch
       {Finch, name: EtherscanApi},
+
+      #update latest block number
       CryptoPayments.CurrentBlock,
+      
+      #confirm payments based on the latest block number
       CryptoPayments.ConfirmPayments
     ]
 
