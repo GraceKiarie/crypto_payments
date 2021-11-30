@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :crypto_payments, CryptoPayments.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "secret123",
   database: "crypto_payments_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

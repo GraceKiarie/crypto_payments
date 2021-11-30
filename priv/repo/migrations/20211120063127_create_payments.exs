@@ -7,7 +7,7 @@ defmodule CryptoPayments.Repo.Migrations.CreatePayments do
       add :blockNumber, :integer
       add :blockHash, :string
       add :value, :float
-      add :confirmed_status, :boolean ,default: false
+      add :confirmed_status, :boolean, default: false
 
       timestamps()
     end

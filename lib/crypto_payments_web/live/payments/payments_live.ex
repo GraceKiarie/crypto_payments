@@ -18,7 +18,7 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
            "No transaction exists for the given hash. Please confirm and try again"
          )}
 
-      {:ok, _payment} ->
+      :ok ->
         {:noreply, socket |> put_flash(:info, "Payment received pending confirmation")}
 
       {:error, :invalid_tx_hash} ->

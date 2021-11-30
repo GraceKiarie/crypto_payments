@@ -7,7 +7,7 @@ import Config
 # Run `mix help test` for more information.
 config :crypto_payments, CryptoPayments.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "secret123",
   database: "crypto_payments_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,

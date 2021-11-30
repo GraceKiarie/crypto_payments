@@ -1,11 +1,11 @@
 defmodule CryptoPayments.CurrentBlock do
   use GenServer
-  alias CryptoPayments.EtherscanApiHttpClient
+  alias CryptoPayments.EtherscanAPI
 
   @update_interval 5000
 
   def start_link(_) do
-    latest_block_number = EtherscanApiHttpClient.most_recent_block()
+    latest_block_number = EtherscanAPI.most_recent_block()
     GenServer.start_link(__MODULE__, latest_block_number, name: __MODULE__)
   end
 
@@ -28,7 +28,7 @@ defmodule CryptoPayments.CurrentBlock do
   @impl true
   def handle_info(:update, _state) do
     # update latest_block_number
-    latest_block_number = EtherscanApiHttpClient.most_recent_block()
+    latest_block_number = EtherscanAPI.most_recent_block()
     # Reschedule once more
     schedule_work()
 

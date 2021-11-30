@@ -21,5 +21,6 @@ defmodule CryptoPayments.Payments.Payment do
     |> validate_required([:transactionHash, :blockNumber, :blockHash, :value])
   end
 
-  def minimum_block_confirmations_before_completion, do: @minimum_block_confirmations_before_completion
+  def minimum_block_confirmations_before_completion,
+    do: @minimum_block_confirmations_before_completion
 end

@@ -21,7 +21,12 @@ defmodule CryptoPayments.PaymentsTest do
     end
 
     test "create_payment/1 with valid data creates a payment" do
-      valid_attrs = %{blockHash: "some blockHash", blockNumber: 42, transactionHash: "some transactionHash", value: 120.5}
+      valid_attrs = %{
+        blockHash: "some blockHash",
+        blockNumber: 42,
+        transactionHash: "some transactionHash",
+        value: 120.5
+      }
 
       assert {:ok, %Payment{} = payment} = Payments.create_payment(valid_attrs)
       assert payment.blockHash == "some blockHash"
@@ -36,7 +41,13 @@ defmodule CryptoPayments.PaymentsTest do
 
     test "update_payment/2 with valid data updates the payment" do
       payment = payment_fixture()
-      update_attrs = %{blockHash: "some updated blockHash", blockNumber: 43, transactionHash: "some updated transactionHash", value: 456.7}
+
+      update_attrs = %{
+        blockHash: "some updated blockHash",
+        blockNumber: 43,
+        transactionHash: "some updated transactionHash",
+        value: 456.7
+      }
 
       assert {:ok, %Payment{} = payment} = Payments.update_payment(payment, update_attrs)
       assert payment.blockHash == "some updated blockHash"
