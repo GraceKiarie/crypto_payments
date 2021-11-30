@@ -10,7 +10,7 @@ defmodule CryptoPaymentsWeb.PaymentsLive do
   @impl true
   def handle_event("save", %{"txhash" => hash}, socket) do
     case CreatePaymentService.create(hash) do
-      {:error, :no_tansaction_found} ->
+      {:error, :transaction_not_found} ->
         {:noreply,
          socket
          |> put_flash(

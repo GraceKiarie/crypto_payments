@@ -20,7 +20,7 @@ defmodule CryptoPayments.Application do
       # {CryptoPayments.Worker, arg}
 
       # Start Finch
-      {Finch, name: EtherscanAPI},
+      {Finch, name: EtherscanApi},
 
       # update latest block number
       CryptoPayments.CurrentBlock,

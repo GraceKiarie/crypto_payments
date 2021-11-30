@@ -9,7 +9,7 @@ defmodule CryptoPayments.Payments.Payment do
     field :blockNumber, :integer
     field :transactionHash, :string
     field :value, :float
-    field :confirmed_status, :boolean
+    field :confirmed_status, :boolean , default: false
 
     timestamps()
   end
