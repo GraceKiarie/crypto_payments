@@ -16,7 +16,7 @@ Tests:
 Use of [exvcr](https://github.com/parroty/exvcr) cassettes
 
 Possible Design issues:
- The system has one worker that checks every 10seconds to see if there are pending confirmations that can be update given the latest block number.If confirmations have to happen immediately then the alternative would be to spawn every payment submission as a different and subscribe it to topic so that it can get broadcasted messages from the CurrentBlock server immediately a change occurs
+ The system has one worker that checks every 10seconds to see if there are pending confirmations that can be update given the latest block number.If confirmations have to happen immediately then the alternative would be to spawn every payment submission as a different process and subscribe it to topic so that it can get broadcasted messages from the CurrentBlock server immediately a change occurs
  
 
 
