@@ -5,16 +5,21 @@ defmodule CryptoPayments.EtherscanApiTest do
 
   setup_all do
     # start the http client
-    Finch.start_link(name: EtherscanAPi)
+    Finch.start_link(name: EtherscanApi)
     :ok
   end
 
   test "get transaction details with a valid hash" do
     use_cassette "transaction_details" do
       tx_hash = "0xbc78ab8a9e9a0bca7d0321a27b2c03addeae08ba81ea98b03cd3dd237eabed44"
-      {:ok, response} = EtherscanAPI.transaction_details(tx_hash)
 
-      assert response["result"]["hash"] == tx_hash
+      assert {:ok,
+              %{
+                blockHash: _block_number,
+                blockNumber: _block_hash,
+                transactionHash: ^tx_hash,
+                value: _value
+              }} = EtherscanAPI.transaction_details(tx_hash)
     end
   end
 
@@ -22,13 +27,7 @@ defmodule CryptoPayments.EtherscanApiTest do
     use_cassette "invalid_tx_hash" do
       tx_hash = "Ochsdkhchccnvvjkcj"
 
-      assert {:ok,
-              %{
-                "error" => %{
-                  "code" => _code,
-                  "message" => _message
-                }
-              }} = EtherscanAPI.transaction_details(tx_hash)
+      assert {:error, :invalid_tx_hash} = EtherscanAPI.transaction_details(tx_hash)
     end
   end
 end

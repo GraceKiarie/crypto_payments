@@ -5,7 +5,7 @@ defmodule CryptoPayments.HttpClient do
   def get(url) do
     :get
     |> Finch.build(url)
-    |> Finch.request(EtherscanAPI)
+    |> Finch.request(EtherscanApi)
     |> handle_response()
   end
 
